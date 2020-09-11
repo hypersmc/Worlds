@@ -1,0 +1,7 @@
+useMySQL: true
+SQLHost: '127.0.0.1'
+SQLPort: '3306'
+SQLDatabaseName: 'myDatabase'
+SQLUsername: 'changeme'
+SQLPassword: 'changeme'
+SQLMaxActiveConnections: 10
