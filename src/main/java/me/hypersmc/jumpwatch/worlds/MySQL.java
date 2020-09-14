@@ -2,10 +2,7 @@ package me.hypersmc.jumpwatch.worlds;
 
 import org.bukkit.Bukkit;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
 public class MySQL {
     public static ResultSet resultSet = null;
@@ -42,6 +39,16 @@ public class MySQL {
             e.printStackTrace();
         }
     }
+    public void closeDatabase() {
+        try {
+            db.close();
+            Bukkit.getLogger().info("[" + Main.plugin.getName() + "] MySQL database closure successful.");
+        } catch (SQLException e) {
+            Bukkit.getLogger().severe("[" + Main.plugin.getName() + "] Failed to close connection!");
+            e.printStackTrace();
+        }
+    }
+
     public void MakeDatabaseStuff() {
         PreparedStatement users = null;
         try {

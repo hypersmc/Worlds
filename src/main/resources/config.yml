@@ -5,3 +5,4 @@ SQLDatabaseName: 'myDatabase'
 SQLUsername: 'changeme'
 SQLPassword: 'changeme'
 SQLMaxActiveConnections: 10
+activationKey: "yourkeyhere"
