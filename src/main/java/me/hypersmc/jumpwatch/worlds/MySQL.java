@@ -21,6 +21,16 @@ public class MySQL {
 
     private String pass = main.getConfig().getString("SQLPassword");
 
+    public void closeDatabase() {
+        try {
+            db.close();
+            Bukkit.getLogger().info("[" + Main.plugin.getName() + "] MySQL database closure successful.");
+        } catch (SQLException e) {
+            Bukkit.getLogger().severe("[" + Main.plugin.getName() + "] Failed to close connection!");
+            e.printStackTrace();
+        }
+    }
+
     public void setupDatabase() {
         String url = null;
         if (this.user.equals("changeme") && this.pass.equals("changeme") && main.getConfig().getBoolean("useMySQL")) {
@@ -38,15 +48,6 @@ public class MySQL {
         } catch (Exception e) {
             Bukkit.getServer().getLogger().severe("[" + main.getName() + "] Could not connect to the " + this.database + " database!");
             Bukkit.getServer().getLogger().severe("Info: " + url);
-            e.printStackTrace();
-        }
-    }
-    public void closeDatabase() {
-        try {
-            db.close();
-            Bukkit.getLogger().info("[" + main.getName() + "] MySQL database closure successful.");
-        } catch (SQLException e) {
-            Bukkit.getLogger().severe("[" + main.getName() + "] Failed to close connection!");
             e.printStackTrace();
         }
     }
