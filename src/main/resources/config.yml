@@ -1,8 +1,17 @@
+##This function is useless
 useMySQL: true
+#edit this as of Database is REQUIRED
 SQLHost: '127.0.0.1'
 SQLPort: '3306'
 SQLDatabaseName: 'myDatabase'
 SQLUsername: 'changeme'
 SQLPassword: 'changeme'
 SQLMaxActiveConnections: 10
+#Well you somehow got this plugin. Dm me with proof of purchase. Discord: JumpWatch 🆅🆁#8704
 activationKey: "yourkeyhere"
+##Messages everything can be edited.
+welcomemessage: "&4 Color codes work %player%"
+welcomesubmessage: "thingtosayhere"
+welcomebackmessage: "Welcome back %player%!"
+welcomebacksubmessage: "thingtosayhere"
+waitime: 40

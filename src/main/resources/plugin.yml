@@ -1,5 +1,6 @@
 main: me.hypersmc.jumpwatch.worlds.Main
 name: Worlds
+version: 0.0.1
 api-version: 1.13
 description:
 default-permission: worlds.use
@@ -8,10 +9,8 @@ depend:
   - WorldEdit
   - AsyncWorldEdit
   - WorldGuard
-  - HackerGuardian
 
 
-database: true
 authors:
   - JumpWatch
   - HypersMC
