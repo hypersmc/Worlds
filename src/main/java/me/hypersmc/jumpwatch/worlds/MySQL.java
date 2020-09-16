@@ -4,9 +4,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class MySQL {
     public static ResultSet resultSet = null;
+    public static ArrayList<String> PList = new ArrayList<>();
 
     public static Connection db = null;
     Main main = JavaPlugin.getPlugin(Main.class);
@@ -55,11 +58,44 @@ public class MySQL {
     public void MakeDatabaseStuff() {
         PreparedStatement users = null;
         try {
-            users = db.prepareStatement("CREATE TABLE IF NOT EXISTS " + this.database + ".Users(`ID` INT(8) NOT NULL AUTO_INCREMENT, `User` VARCHAR(45) NULL, `Team` VARCHAR(45) NULL, `Money` INT(64) NULL, `Created` DATETIME NULL, PRIMARY KEY (`ID`));");
+            users = db.prepareStatement("CREATE TABLE IF NOT EXISTS " + this.database + ".Users(`ID` INT(8) NOT NULL AUTO_INCREMENT, `User` VARCHAR(45) NULL, `UUID` VARCHAR (45) NULL,`Team` VARCHAR(45) NULL, `Money` INT(64) NULL, `Created` DATETIME NULL, PRIMARY KEY (`ID`));");
             users.executeUpdate();
         } catch (Exception e) {
             Bukkit.getServer().getLogger().severe("[" + main.getName() + "] ERROR creating database resources!");
             e.printStackTrace();
         }
+    }
+
+    public static void insterFirstUserIntoTable(String player, UUID uuid, Integer money, String team, String date ) {
+        PreparedStatement pre = null;
+        try {
+            pre = db.prepareStatement("INSERT INTO Users VALUES ('" + player + "','" + uuid + "','" + money + "','" + team + "','" + date +"');");
+            pre.executeUpdate();
+        } catch (Exception e) {
+            Bukkit.getServer().getLogger().info(Main.prefix + "User either exist or database error have occurred. Check error bellow.");
+            e.printStackTrace();
+        }
+
+    }
+
+    public static int geteveryone(UUID uuid) {
+        PreparedStatement pre = null;
+        try {
+            pre = db.prepareStatement("SELECT UUID FROM Users;");
+            resultSet = pre.executeQuery();
+            while (resultSet.next()) {
+                String players = resultSet.getString("UUID");
+                PList.add(players);
+                if (PList.contains(uuid)) {
+                    return 1;
+                }else {
+                    return 0;
+                }
+            }
+        } catch (Exception e) {
+            Bukkit.getServer().getLogger().info(Main.prefix + "User table is either empty or database error have occurred . Check error bellow.");
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

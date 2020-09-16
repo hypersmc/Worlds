@@ -8,7 +8,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class CommandHandler implements Listener {
     static Main main = JavaPlugin.getPlugin(Main.class);
+
     public static void getcommands() {
-        main.getCommand("WorldsA").setExecutor((CommandExecutor)new AdminCommands());
+        main.getCommand("WorldsA").setExecutor(new AdminCommands());
+
     }
 }

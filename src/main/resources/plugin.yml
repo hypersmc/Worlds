@@ -9,9 +9,13 @@ depend:
   - WorldEdit
   - AsyncWorldEdit
   - WorldGuard
-
+  - multiversecore
 
 authors:
   - JumpWatch
   - HypersMC
 commands:
+  WorldsA:
+    description: Admin side of Worlds
+    permission: Worlds.Admin.Use
+    usage: /<command>
