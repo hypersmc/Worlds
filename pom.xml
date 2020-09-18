@@ -143,6 +143,11 @@
             <artifactId>netty-handler</artifactId>
             <version>4.1.51.Final</version>
         </dependency>
+        <dependency>
+            <groupId>me.mattstudios.utils</groupId>
+            <artifactId>matt-framework-gui</artifactId>
+            <version>2.0.2</version> <!-- replace version here -->
+        </dependency>
     </dependencies>
 
 </project>

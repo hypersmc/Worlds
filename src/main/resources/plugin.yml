@@ -9,7 +9,7 @@ depend:
   - WorldEdit
   - AsyncWorldEdit
   - WorldGuard
-  - multiversecore
+  - 'Multiverse-Core'
 
 authors:
   - JumpWatch
@@ -18,4 +18,8 @@ commands:
   WorldsA:
     description: Admin side of Worlds
     permission: Worlds.Admin.Use
+    usage: /<command>
+  Worlds:
+    description: User side of Worlds
+    permission: Worlds.Use
     usage: /<command>

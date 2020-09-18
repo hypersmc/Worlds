@@ -14,7 +14,7 @@ public class AdminCommands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
         if (sender instanceof ConsoleCommandSender) {
-            sender.sendMessage("Sorry but all of the commands for Worlds are Player based. There might come some later one.");
+            sender.sendMessage(main.prefix + " Sorry but all of the commands for Worlds are Player based. There might come some later one.");
         }else {
             if (cmd.getName().equalsIgnoreCase("WorldsA")) {
                 Player p = (Player) sender;
@@ -37,7 +37,7 @@ public class AdminCommands implements CommandExecutor {
                 }
                 if (args[0].equalsIgnoreCase("reload")) {
                     main.reloadConfig();
-                    sender.sendMessage(main.prefix + "Configuration file reloaded.");
+                    sender.sendMessage(main.prefix + " Configuration file reloaded.");
                     return true;
                 }
             }

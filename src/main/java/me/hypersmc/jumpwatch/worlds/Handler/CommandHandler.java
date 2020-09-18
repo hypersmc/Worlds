@@ -1,6 +1,7 @@
 package me.hypersmc.jumpwatch.worlds.Handler;
 
 import me.hypersmc.jumpwatch.worlds.Commands.AdminCommands;
+import me.hypersmc.jumpwatch.worlds.Commands.UserCommands;
 import me.hypersmc.jumpwatch.worlds.Main;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
@@ -11,6 +12,7 @@ public class CommandHandler implements Listener {
 
     public static void getcommands() {
         main.getCommand("WorldsA").setExecutor(new AdminCommands());
+        main.getCommand("Worlds").setExecutor(new UserCommands());
 
     }
 }
