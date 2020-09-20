@@ -27,8 +27,11 @@ public class MainGuiUser implements Listener {
 
     public void maingui(Player player) {
         gui.open(player);
-        gui.setItem(0-13, Fillitem);
-        gui.setItem(14, guiItem);
+        for (int i = 0; i < 53; i++) {
+            gui.setItem(i, Fillitem);
+        }
+        gui.setItem(10, guiItem);
+        gui.setItem(16, guiItem);
     }
 
 
