@@ -15,9 +15,9 @@ public class Join implements Listener {
     public void PlayerJoined(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         if (p.hasPlayedBefore()) {
-            p.sendTitle("" + ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("welcomebackmessage").replace("%player%",String.valueOf(p.getName())) ), ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("welcomebacksubmessage")), 2, main.getConfig().getInt("waitime"), 2);
+            p.sendTitle("" + ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("Message.General.welcomebackmessage").replace("%player%",String.valueOf(p.getName())) ), ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("Message.General.welcomebacksubmessage")), 2, main.getConfig().getInt("waitime"), 2);
         }else {
-            p.sendTitle("" + ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("welcomemessage").replace("%player%",String.valueOf(p.getName())) ), ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("welcomesubmessage")), 2, main.getConfig().getInt("waitime"), 2);
+            p.sendTitle("" + ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("Message.General.welcomemessage").replace("%player%",String.valueOf(p.getName())) ), ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("Message.General.welcomesubmessage")), 2, main.getConfig().getInt("waitime"), 2);
         }
     }
 

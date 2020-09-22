@@ -21,7 +21,7 @@ public class Main extends JavaPlugin  implements Listener{
     public void onEnable() {
         getConfig().options().copyDefaults();
         saveDefaultConfig();
-        Bukkit.getServer().getLogger().info( "\n" +
+        Bukkit.getServer().getLogger().info( "\n" + "\n" +
                 "░██╗░░░░░░░██╗░█████╗░██████╗░██╗░░░░░██████╗░░██████╗\n" +
                 "░██║░░██╗░░██║██╔══██╗██╔══██╗██║░░░░░██╔══██╗██╔════╝\n" +
                 "░╚██╗████╗██╔╝██║░░██║██████╔╝██║░░░░░██║░░██║╚█████╗░\n" +

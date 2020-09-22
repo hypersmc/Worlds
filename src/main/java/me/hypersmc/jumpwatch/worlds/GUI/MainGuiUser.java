@@ -3,6 +3,7 @@ package me.hypersmc.jumpwatch.worlds.GUI;
 import me.mattstudios.mfgui.gui.components.ItemBuilder;
 import me.mattstudios.mfgui.gui.guis.Gui;
 import me.mattstudios.mfgui.gui.guis.GuiItem;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -18,11 +19,12 @@ public class MainGuiUser implements Listener {
     });
 
     //Gui items for main
-    GuiItem guiItem = ItemBuilder.from(Material.STONE).setName("dw").asGuiItem(event -> {
+    GuiItem guiItem = ItemBuilder.from(Material.STONE).setName(ChatColor.DARK_PURPLE + "").asGuiItem(event -> {
         // Handle your click action here
         event.setCancelled(true);
         gui2.open(event.getWhoClicked());
     });
+    GuiItem
     //Gui items for
 
     public void maingui(Player player) {

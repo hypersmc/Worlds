@@ -1,5 +1,22 @@
-##This function is useless
-useMySQL: true
+########################################
+# __          __        _     _        #
+# \ \        / /       | |   | |       #
+#  \ \  /\  / /__  _ __| | __| |___    #
+#   \ \/  \/ / _ \| '__| |/ _` / __|   #
+#    \  /\  / (_) | |  | | (_| \__ \   #
+#     \/  \/ \___/|_|  |_|\__,_|___/   #
+#                                      #
+################ By jumpWatch/HypersMC #
+# To start off i would like to thanks you very much for buying this plugin! This plugin has been in development for a very very long time.
+# To start the plugin you will need the following requirements:
+# 1. MySQL Database (options for SQLLite and others are coming)
+# 2. A server with atleast 5 GB of ram. You can buy one at https://zennodes.dk/Buy/cart.php?gid=1&language=english
+# 3. A very powerful server. A weak server would easily crash as of there is big schematics that can easily crash the server.
+#
+#
+#
+##This function is useless and might be removed in later releases.
+useMySQL: true #This have to be on true otherwise the plugin won't work properly.
 #edit this as of Database is REQUIRED
 SQLHost: '127.0.0.1'
 SQLPort: '3306'
@@ -7,11 +24,15 @@ SQLDatabaseName: 'myDatabase'
 SQLUsername: 'changeme'
 SQLPassword: 'changeme'
 SQLMaxActiveConnections: 10
-#Well you somehow got this plugin. Dm me with proof of purchase. Discord: JumpWatch 🆅🆁#8704
+#Well you somehow got this plugin. Dm me with proof of purchase and your servers IP then you will be given an Activation Key. Discord: JumpWatch 🆅🆁#0001
 activationKey: "yourkeyhere"
 ##Messages everything can be edited.
-welcomemessage: "&4 Color codes work %player%"
-welcomesubmessage: "thingtosayhere"
-welcomebackmessage: "Welcome back %player%!"
-welcomebacksubmessage: "thingtosayhere"
+Message:
+  General:
+    welcomemessage: "&4 Color codes work %player%"
+    welcomesubmessage: "thingtosayhere"
+    welcomebackmessage: "Welcome back %player%!"
+    welcomebacksubmessage: "thingtosayhere"
+  Admin:
+#welcome/welcomeback message waitime. (the time it stays on the screen.)
 waitime: 40

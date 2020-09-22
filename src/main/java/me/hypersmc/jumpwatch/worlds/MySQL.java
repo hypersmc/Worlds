@@ -27,9 +27,9 @@ public class MySQL {
     public void closeDatabase() {
         try {
             db.close();
-            Bukkit.getLogger().info("[" + Main.plugin.getName() + "] MySQL database closure successful.");
+            Bukkit.getLogger().info("[" + main.getDescription().getName() + "] MySQL database closure successful.");
         } catch (SQLException e) {
-            Bukkit.getLogger().severe("[" + Main.plugin.getName() + "] Failed to close connection!");
+            Bukkit.getLogger().severe("[" + main.getDescription().getName() + "] Failed to close connection!");
             e.printStackTrace();
         }
     }

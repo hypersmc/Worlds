@@ -2,8 +2,7 @@ main: me.hypersmc.jumpwatch.worlds.Main
 name: Worlds
 version: 0.0.1
 api-version: 1.13
-description:
-default-permission: worlds.use
+description: Worlds is a Gamemode for servers that want a story with sidemissions. Worlds includes premade story with over 100 side quests and 50 main missions.
 depend:
   - Citizens
   - WorldEdit
@@ -14,6 +13,7 @@ depend:
 authors:
   - JumpWatch
   - HypersMC
+  - Contributors
 commands:
   WorldsA:
     description: Admin side of Worlds
