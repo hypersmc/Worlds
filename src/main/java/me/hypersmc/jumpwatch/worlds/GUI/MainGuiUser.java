@@ -27,7 +27,7 @@ public class MainGuiUser extends Schematicpaste implements Listener {
     GuiItem guiItem = ItemBuilder.from(Material.STONE).setName(ChatColor.DARK_PURPLE + "test").asGuiItem(event -> {
         // Handle your click action here
         event.setCancelled(true);
-        File file = new File("plugins/" + Main.plugin.getName() + "/schematics/medieval-smithy.schematic");
+        File file = new File("plugins/Worlds/schematics/medieval-smithy.schematic");
         loadschem(file);
         double x = event.getWhoClicked().getLocation().getX();
         double y = event.getWhoClicked().getLocation().getY();
