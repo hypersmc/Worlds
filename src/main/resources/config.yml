@@ -27,6 +27,9 @@ SQLMaxActiveConnections: 10
 #Well you somehow got this plugin. Dm me with proof of purchase and your servers IP then you will be given an Activation Key. Discord: JumpWatch 🆅🆁#0001
 activationKey: "yourkeyhere"
 ##Messages everything can be edited.
+# Placeholders:
+# %player%
+# %
 Message:
   General:
     welcomemessage: "&4 Color codes work %player%"
