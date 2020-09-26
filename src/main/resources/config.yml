@@ -39,3 +39,9 @@ Message:
   Admin:
 #welcome/welcomeback message waitime. (the time it stays on the screen.)
 waitime: 40
+
+#Webserver
+#In testing phase
+listeningport: 25567
+EnableWebserver: true
+debug: false

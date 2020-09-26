@@ -1,13 +1,26 @@
+/*
+ * ******************************************************
+ *  *Copyright (c) 2020. Jesper Henriksen mhypers@gmail.com
+ *
+ *  * This file is part of Worlds project
+ *  *
+ *  * Worlds can not be copied and/or distributed without the express
+ *  * permission of Jesper Henriksen
+ *  ******************************************************
+ */
+
 package me.hypersmc.jumpwatch.worlds.GUI;
 
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.world.World;
 import me.hypersmc.jumpwatch.worlds.Main;
 import me.hypersmc.jumpwatch.worlds.WorldEditside.Schematicpaste;
 import me.mattstudios.mfgui.gui.components.ItemBuilder;
 import me.mattstudios.mfgui.gui.guis.Gui;
 import me.mattstudios.mfgui.gui.guis.GuiItem;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
@@ -32,8 +45,9 @@ public class MainGuiUser extends Schematicpaste implements Listener {
         double x = event.getWhoClicked().getLocation().getX();
         double y = event.getWhoClicked().getLocation().getY();
         double z = event.getWhoClicked().getLocation().getZ();
-        World world = event.getWhoClicked().getLocation().getWorld();
-        pasteschem(x, y, z, world);
+        //Player player = event.getWhoClicked().getop
+        //World world = event.getWhoClicked().getLocation().getWorld()
+        //pasteschem(x, y, z, world);
     });
 
     //Gui items for
