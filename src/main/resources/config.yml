@@ -45,3 +45,5 @@ waitime: 40
 listeningport: 25567
 EnableWebserver: true
 debug: false
+UseHtml: true
+UsePHP: false
