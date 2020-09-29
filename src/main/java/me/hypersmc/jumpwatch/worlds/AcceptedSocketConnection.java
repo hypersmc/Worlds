@@ -13,6 +13,8 @@ package me.hypersmc.jumpwatch.worlds;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Date;
+import java.util.StringTokenizer;
 
 public class AcceptedSocketConnection extends Thread{
     Socket sock;
@@ -25,12 +27,19 @@ public class AcceptedSocketConnection extends Thread{
     }
     @Override
     public void run() {
+        BufferedReader in = null; PrintWriter out = null; BufferedOutputStream dataOut = null;
+        String fileRequested = null;
         try {
-            BufferedOutputStream dataOut = null;
-            BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
+            in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+            out = new PrintWriter(sock.getOutputStream());
             dataOut = new BufferedOutputStream(sock.getOutputStream());
-
+            // get first line of the request from the client
+            String input = in.readLine();
+            // we parse the request with a string tokenizer
+            StringTokenizer parse = new StringTokenizer(input);
+            String method = parse.nextToken().toUpperCase(); // we get the HTTP method of the client
+            // we get file requested
+            fileRequested = parse.nextToken().toLowerCase();
             String contentMimeType = "text/html";
 
             String s;
@@ -56,49 +65,28 @@ public class AcceptedSocketConnection extends Thread{
             }
 
             //This section is the response to the clients request, the web page:
-            out.write("HTTP/1.0 200 OK\r\n");
-            out.write("Date: Fri, 31 Dec 1999 23:59:59 GMT\r\n");
-            out.write("Server: Apache/0.8.4\r\n");
-            out.write("Content-Type: text/html\r\n");
-            out.write("Expires: Sat, 01 Jan 2000 00:59:59 GMT\r\n");
-            out.write("Last-modified: Fri, 09 Aug 1996 14:21:40 GMT\r\n");
-            out.write("\r\n");
-            //Content of returned html page is here:
-            File file = new File( plugin.getDataFolder() + "/web/index.html");
-            File file2 = new File(plugin.getDataFolder() + "/web/index.php");
-
-            if (file.isFile()) {
-                if (plugin.getConfig().getBoolean("UseHtml")) {
-                    BufferedReader reader;
-                    reader = new BufferedReader(new FileReader(file));
-                    String line = reader.readLine();
-                    while (line != null) {
-                        out.write(line);
-                        line = reader.readLine();
-                    }
-                }
-
-
-
-            } else if (file2.isFile()){
-                if (plugin.getConfig().getBoolean("UsePHP")) {
-                    BufferedReader reader2;
-                    reader2 = new BufferedReader(new FileReader(file2));
-                    String line2 = reader2.readLine();
-                    while (line2 != null) {
-                        out.write(line2);
-                        line2 = reader2.readLine();
-                    }
-                }
-
-            }else {
-                out.write("<h1>Failed</h1>");
-                out.write("<br><h2>Missing index.php or index.html</h2>");
-
+            if (fileRequested.endsWith("/")) {
+                fileRequested += DEFAULT_FILE;
             }
 
+            File file = new File(main, fileRequested);
+            int fileLength = (int) file.length();
+            String content = getContentType(fileRequested);
 
+            if (method.equals("GET")) { // GET method so we return content
+                byte[] fileData = readFileData(file, fileLength);
 
+                // send HTTP Headers
+                out.write("HTTP/1.1 200 OK");
+                out.write("Server: Java HTTP Server from SSaurel : 1.0");
+                out.println("Date: " + new Date());
+                out.println("Content-type: " + content);
+                out.println(); // blank line between headers and content, very important !
+                out.flush(); // flush character output stream buffer
+
+                dataOut.write(fileData, 0, fileLength);
+                dataOut.flush();
+            }
             out.close();
             in.close();
             sock.close();
@@ -107,6 +95,28 @@ public class AcceptedSocketConnection extends Thread{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+    private byte[] readFileData(File file, int fileLength) throws IOException {
+        FileInputStream fileIn = null;
+        byte[] fileData = new byte[fileLength];
+
+        try {
+            fileIn = new FileInputStream(file);
+            fileIn.read(fileData);
+        } finally {
+            if (fileIn != null)
+                fileIn.close();
+        }
+
+        return fileData;
+    }
+
+    // return supported MIME Types
+    private String getContentType(String fileRequested) {
+        if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
+            return "text/html";
+        else
+            return "text/plain";
     }
 
 }
