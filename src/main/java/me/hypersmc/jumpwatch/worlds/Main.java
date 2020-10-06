@@ -61,6 +61,7 @@ public class Main extends JavaPlugin  implements Listener{
                 "░░╚██╔╝░╚██╔╝░╚█████╔╝██║░░██║███████╗██████╔╝██████╔╝\n" +
                 "░░░╚═╝░░░╚═╝░░░╚════╝░╚═╝░░╚═╝╚══════╝╚═════╝░╚═════╝░");
         Logger logger = this.getLogger();
+        Bukkit.getServer().getLogger().info("\n \n"+ ChatColor.DARK_GRAY + "[]=====["+ ChatColor.GRAY +"Enabling "+ getDescription().getName() + ChatColor.DARK_GRAY + "]=====[]\n" + ChatColor.DARK_GRAY + "| " + ChatColor.RED + "Logged info:\n"+ ChatColor.DARK_GRAY +"|   "+ ChatColor.RED +"Name: "+ ChatColor.GRAY +"Player Housing\n"    + ChatColor.DARK_GRAY +"|   "+ ChatColor.RED +"Webserver: "+ ChatColor.GRAY + webserver() +"\n"    + ChatColor.DARK_GRAY +"|   "+ ChatColor.RED +"Developer: "+ ChatColor.GRAY +"" + this.getDescription().getAuthors() +"\n"+ ChatColor.DARK_GRAY +"|   "+ ChatColor.RED +"Version: "+ ChatColor.GRAY +"" + this.getDescription().getVersion() + "\n"+ ChatColor.DARK_GRAY +"|   "+ ChatColor.RED +"Plugins: "+ ChatColor.GRAY +"\n" + detechplugingWEAAWE());
 
         new UpdateChecker(this, 12345).getVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
@@ -69,6 +70,7 @@ public class Main extends JavaPlugin  implements Listener{
                 logger.info("There is a new update available.");
             }
         });
+
         if (this.getConfig().getBoolean("UseHtml") || !this.getConfig().getBoolean("UsePHP")){
             if (!new File(getDataFolder() + "/web/", "index.html").exists()) {
                 saveResource("web/index.html", false);
@@ -149,7 +151,25 @@ public class Main extends JavaPlugin  implements Listener{
         CommandHandler.getcommands();
         EventHandler.getevents();
     }
+    public String detechplugingWEAAWE(){
+        if ((Bukkit.getPluginManager().getPlugin("AsyncWorldEdit")) != null && (Bukkit.getPluginManager().getPlugin("WorldEdit")) != null) {
+            return ""+ ChatColor.DARK_GRAY +"| "+ ChatColor.GREEN +"WorldEdit\n" + ""+ ChatColor.DARK_GRAY +"| "+ ChatColor.GREEN +"AsyncWorldEdit";
+        }else if ((Bukkit.getPluginManager().getPlugin("AsyncWorldEdit")) == null && (Bukkit.getPluginManager().getPlugin("WorldEdit")) != null){
+            return ""+ ChatColor.DARK_GRAY +"| "+ ChatColor.GREEN +"WorldEdit\n" + ""+ ChatColor.DARK_GRAY +"| "+ ChatColor.RED +"AsyncWorldEdit";
+        }else if ((Bukkit.getPluginManager().getPlugin("AsyncWorldEdit")) == null && (Bukkit.getPluginManager().getPlugin("WorldEdit")) == null){
+            return ""+ ChatColor.DARK_GRAY +"| "+ ChatColor.RED +"WorldEdit\n" + ""+ ChatColor.DARK_GRAY +"| "+ ChatColor.RED +"AsyncWorldEdit";
 
+        }
+        return null;
+    }
+    public String webserver(){
+        if (getConfig().getBoolean("EnableWebserver")){
+            return "" + ChatColor.GREEN + "True";
+
+        }else {
+            return "" + ChatColor.RED + "False";
+        }
+    }
     @Override
     public void onDisable() {
         MySQL SQL = new MySQL();
