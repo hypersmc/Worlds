@@ -69,18 +69,26 @@ public class Main extends JavaPlugin  implements Listener{
                 logger.info("There is a new update available.");
             }
         });
-
-        if (!new File(getDataFolder() + "/web/", "index.html").exists()) {
-            saveResource("web/index.html", false);
+        if (this.getConfig().getBoolean("UseHtml") || !this.getConfig().getBoolean("UsePHP")){
+            if (!new File(getDataFolder() + "/web/", "index.html").exists()) {
+                saveResource("web/index.html", false);
+            }
+        }else if (!this.getConfig().getBoolean("UseHtml") || this.getConfig().getBoolean("UsePHP")){
+            if (!new File(getDataFolder() + "/web/", "index.php").exists()) {
+                saveResource("web/index.php", false);
+            }
         }
+
 
         File file = new File("plugins/Worlds/web/index.html");
         File file2 = new File("plugins/Worlds/web/index.php");
         if (!file.exists()){
             Bukkit.getServer().getLogger().warning("No index for html was found!");
+            Bukkit.getServer().getLogger().info("This error can be ignored if you use PHP");
         }
         if (!file2.exists()){
             Bukkit.getServer().getLogger().warning("No index for php was found!");
+            Bukkit.getServer().getLogger().info("This error can be ignored if you use HTML");
 
         }
         debug = getConfig().getBoolean("debug");

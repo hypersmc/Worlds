@@ -19,6 +19,8 @@ import java.util.StringTokenizer;
 public class AcceptedSocketConnection extends Thread{
     Socket sock;
     Main plugin;
+    String DEFAULT_FILE = "index.html";
+    String DEFAULT_FILE2 = "index.php";
     public AcceptedSocketConnection(Socket sock, Main plugin) {
         // TODO Auto-generated constructor stub
         this.sock = sock;
@@ -45,18 +47,23 @@ public class AcceptedSocketConnection extends Thread{
             String s;
             int counterr = 0, contentLength = 0;
             //boolean gotEmptyLine = false;//TODO Remember why I did this line lol
-            while (!(s = in.readLine()).equals("")) {
-                if(counterr == 0 && s.equalsIgnoreCase(Main.closeConnection)){
-                    out.close();
-                    in.close();
-                    sock.close();
+            try {
+                while (!(s = in.readLine()).equals("")) {
+                    if (counterr == 0 && s.equalsIgnoreCase(Main.closeConnection)) {
+                        out.close();
+                        in.close();
+                        sock.close();
 
-                    return;
+                        return;
+                    }
+                    if (s.startsWith("Content-Length: ")) {
+                        contentLength = Integer.parseInt(s.split("Length: ")[1]);
+                    }
+                    counterr++;
                 }
-                if(s.startsWith("Content-Length: ")){
-                    contentLength = Integer.parseInt(s.split("Length: ")[1]);
-                }
-                counterr++;
+            }catch (IOException e) {
+                plugin.getServer().getLogger().info("This is not an error and should not be reported.");
+                plugin.getServer().getLogger().info("Counting failed!");
             }
 
             String finalString = "";
@@ -66,26 +73,36 @@ public class AcceptedSocketConnection extends Thread{
 
             //This section is the response to the clients request, the web page:
             if (fileRequested.endsWith("/")) {
-                fileRequested += DEFAULT_FILE;
+                if (plugin.getConfig().getBoolean("UseHtml") && !plugin.getConfig().getBoolean("UsePHP")) {
+                    fileRequested += DEFAULT_FILE;
+                }else if (!plugin.getConfig().getBoolean("UseHtml") && plugin.getConfig().getBoolean("UsePHP")) {
+                    fileRequested += DEFAULT_FILE2;
+                }
             }
 
-            File file = new File(main, fileRequested);
+            File file = new File(plugin.getDataFolder() + "/web/", fileRequested);
             int fileLength = (int) file.length();
             String content = getContentType(fileRequested);
 
             if (method.equals("GET")) { // GET method so we return content
-                byte[] fileData = readFileData(file, fileLength);
+                try {
+                    byte[] fileData = readFileData(file, fileLength);
 
-                // send HTTP Headers
-                out.write("HTTP/1.1 200 OK");
-                out.write("Server: Java HTTP Server from SSaurel : 1.0");
-                out.println("Date: " + new Date());
-                out.println("Content-type: " + content);
-                out.println(); // blank line between headers and content, very important !
-                out.flush(); // flush character output stream buffer
+                    // send HTTP Headers
+                    out.write("HTTP/1.1 200 OK");
+                    out.write("Server: Java HTTP Server from SSaurel : 1.0");
+                    out.println("Set-Cookie: Max-Age=0; Secure; HttpOnly");
+                    out.println("Date: " + new Date());
+                    out.println("Content-type: " + content);
+                    out.println(); // blank line between headers and content, very important !
+                    out.flush(); // flush character output stream buffer
 
-                dataOut.write(fileData, 0, fileLength);
-                dataOut.flush();
+                    dataOut.write(fileData, 0, fileLength);
+                    dataOut.flush();
+                }catch (IOException e) {
+                    plugin.getServer().getLogger().info("This is not an error and should not be reported.");
+                    plugin.getServer().getLogger().info("Writing failed!");
+                }
             }
             out.close();
             in.close();
@@ -103,7 +120,10 @@ public class AcceptedSocketConnection extends Thread{
         try {
             fileIn = new FileInputStream(file);
             fileIn.read(fileData);
-        } finally {
+        } catch (IOException e){
+            plugin.getServer().getLogger().info("This is not an error and should not be reported.");
+            plugin.getServer().getLogger().info("File: " + file + " Could not be found!");
+        }finally {
             if (fileIn != null)
                 fileIn.close();
         }
@@ -113,10 +133,18 @@ public class AcceptedSocketConnection extends Thread{
 
     // return supported MIME Types
     private String getContentType(String fileRequested) {
-        if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
+        if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html")) {
             return "text/html";
-        else
+        }else if (fileRequested.endsWith(".css")) {
+            return "text/css";
+        }else if (fileRequested.endsWith(".js")) {
+            return "application/x-javascript";
+        }else if (fileRequested.endsWith(".svg")){
+            return "image/svg+xml";
+        }else{
             return "text/plain";
+        }
+
     }
 
 }

@@ -12,6 +12,7 @@
 package me.hypersmc.jumpwatch.worlds.GUI;
 
 import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.world.World;
 import me.hypersmc.jumpwatch.worlds.Main;
 import me.hypersmc.jumpwatch.worlds.WorldEditside.Schematicpaste;
@@ -45,15 +46,15 @@ public class MainGuiUser extends Schematicpaste implements Listener {
         double x = event.getWhoClicked().getLocation().getX();
         double y = event.getWhoClicked().getLocation().getY();
         double z = event.getWhoClicked().getLocation().getZ();
-        //Player player = event.getWhoClicked().getop
-        //World world = event.getWhoClicked().getLocation().getWorld()
-        //pasteschem(x, y, z, world);
+        World world = BukkitAdapter.adapt(event.getWhoClicked().getWorld());
+        pasteschem(x, y, z, world);
     });
 
     //Gui items for
 
     public void maingui(Player player) {
         gui.open(player);
+
         for (int i = 0; i < 54; i++) {
             gui.setItem(i, Fillitem);
         }
